@@ -2,4 +2,23 @@
 
 [![Join the chat at https://gitter.im/whiteboards/garden-common](https://badges.gitter.im/whiteboards/garden-common.svg)](https://gitter.im/whiteboards/garden-common?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-shared resources
+## What is it?
+
+Garden is a *stream* of data that you choose. That can be a link, image, video, or just some text. 
+This data stream is shared with your friends. You can follow, and be followed by others. 
+At inception there are not any privacy controls for sharing data only with certain people. Nor can you reject a follower.
+
+*some of these privacy controls may be added later, especially the ability to block followers*
+
+Here is a short run down of features we are hoping to have.
+
+- Native apps. (starting with android)
+- "share via" functionality for android
+- Data stream (should refresh on it's own)
+- Followers/follwing (this builds the data stream)
+- Paging API (we don't always want every bit ever shared)
+- Content Parsing (if a link is a youtube video, give me a video, not a link)
+- Content type (at inception, a person has to pick the kind of content something is, until we get better at doing so)
+- Authentication
+
+More to come.
