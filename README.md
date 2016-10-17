@@ -12,7 +12,7 @@ At inception there are not any privacy controls for sharing data only with certa
 
 Here is a short run down of features we are hoping to have.
 
-- Native apps. (starting with android)
+- Native apps. (android, iOS, desktop, web, electron, etc.)
 - "share via" functionality for android
 - Data stream (should refresh on it's own)
 - Followers/follwing (this builds the data stream)
@@ -34,18 +34,19 @@ Resource List:
 
 A user should have the following routes
 - GET
-  - `/user`
-  - `/user/followers`
-  - `/user/following`
-  - `/user/posts`
+  - `/user` expects `/user/_id`
+  - `/user/followers` expects `/user/_id/followers`
+  - `/user/following` expects `/user/_id/following`
+  - `/user/posts` expects `/user/_id/posts`
 
 - POST
-  - `/user/follow`
+  - `/user/follow` expects `token` header, and `/user/_id/follow` 
   
 
 ### post
 - POST
-  - `/post`
+  - `/post` expects `token` header 
+    - body should contain `contentType`, and `content`
   
 ### Special
 - POST
@@ -53,4 +54,4 @@ A user should have the following routes
   - `/auth/login`
   
 - GET 
-  - `/auth/logout`
+  - `/auth/logout` expects `token` header
