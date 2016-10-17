@@ -1,0 +1,32 @@
+{
+  "name": "garden",
+  "version": "1.0.0",
+  "description": "a customizable data stream",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whiteboards/garden.git"
+  },
+  "keywords": [
+    "garden",
+    "api",
+    "data",
+    "stream"
+  ],
+  "author": "Nathan Bland <nathan.bland@gmail.com> (https://nathanbland.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whiteboards/garden/issues"
+  },
+  "homepage": "https://github.com/whiteboards/garden#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.4"
+  }
+}

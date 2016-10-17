@@ -29,6 +29,7 @@ Resource List:
 - user
 - post
 - special
+
 ### User
 
 A user should have the following routes
