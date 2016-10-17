@@ -30,6 +30,7 @@ module.exports = function (express) {
     });
   })
   
+  
   router.route('/:_id/followers')
   .get((req, res, next) => {
     User.findOne({_id: req.params._id}, 'followers')
@@ -43,6 +44,7 @@ module.exports = function (express) {
       }     
     })
   })
+  
   router.route('/:_id/following')
   .get((req, res, next) => {
     User.findOne({_id: req.params._id}, 'following')
@@ -53,6 +55,41 @@ module.exports = function (express) {
       } else {
         console.info('Found the user')
         res.status(200).json(user)
+      }     
+    })
+  })
+  
+  router.route('/:_id/posts')
+  .get((req, res, next) => {
+    User.findOne({_id: req.params._id}, 'posts')
+    // .populate('following', '-password')
+    .exec(function (err, user) {
+      if (err) {
+      	res.status(400).json({'error':err})
+      } else {
+        console.info('Found the user and posts')
+        res.status(200).json(user)
+      }     
+    })
+  })
+  
+  router.route('/:_id/follow') 
+  // requires user. Adds the _id user to the list of
+  // "followed" users on the req.user
+  .post((req, res, next) => {
+    // check auth
+    if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
+    User.findOne({_id: req.user._id}, '-password')
+    .exec(function (err, user) {
+      if (err) { return res.status(400).json({'error':err})
+      } else {
+        console.info('Found the user, adding follower')
+        user.following.push(req.params._id)
+        user.save(function (err, user) {
+          if (err) { return res.status(400).json({'error':err}) }
+          console.log('Success!');
+          res.status(201).json(user)
+        })
       }     
     })
   })

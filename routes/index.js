@@ -20,8 +20,9 @@ module.exports = function (express) {
      next()
     }
   })
-  router.use('/auth', require('./users')(express))
+  router.use('/auth', require('./auth')(express))
   router.use('/user', require('./users')(express))
+  router.use('/post', require('./posts')(express))
   router.get('/', function (req, res, next) {
     res.json({msg: 'Welcome to the api'})
   })
