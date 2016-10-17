@@ -22,3 +22,34 @@ Here is a short run down of features we are hoping to have.
 - Authentication
 
 More to come.
+
+## Api Spec
+
+Resource List:
+- user
+- post
+- special
+### User
+
+A user should have the following routes
+- GET
+  - `/user`
+  - `/user/followers`
+  - `/user/following`
+  - `/user/posts`
+
+- POST
+  - `/user/follow`
+  
+
+### post
+- POST
+  - `/post`
+  
+### Special
+- POST
+  - `/auth/signup`
+  - `/auth/login`
+  
+- GET 
+  - `/auth/logout`
