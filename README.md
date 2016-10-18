@@ -4,9 +4,12 @@
 
 ## What is it?
 
-Garden is a *stream* of data that you choose. That can be a link, image, video, or just some text. 
+Garden is a *stream* of data that you choose. That can be a `link`, `image`, `video`, or just some `text`. 
 This data stream is shared with your friends. You can follow, and be followed by others. 
 At inception there are not any privacy controls for sharing data only with certain people. Nor can you reject a follower.
+
+Think of a it as a baby between google keep (notes) and twitter (data stream). A user is given the ability to share small bits
+of data with the friends as they wish.
 
 *some of these privacy controls may be added later, especially the ability to block followers*
 
@@ -47,9 +50,15 @@ A user should have the following routes
 - POST
   - `/post` expects `token` header 
     - body should contain `contentType`, and `content`
-  
+  - Default types of `content` should be one of the following 4
+    - `video`
+    - `image`
+    - `text`
+    - `link`
+  - It is up to the client in terms of how they display each type of content, but they should support at least these 4.
+  - Optionally, if they don't understand a content type, they should not display it.
 ### Special
-- POST
+- POST expects `username` and `password` on POST
   - `/auth/signup`
   - `/auth/login`
   
