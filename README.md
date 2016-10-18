@@ -8,8 +8,14 @@ Garden is a *stream* of data that you choose. That can be a `link`, `image`, `vi
 This data stream is shared with your friends. You can follow, and be followed by others. 
 At inception there are not any privacy controls for sharing data only with certain people. Nor can you reject a follower.
 
-Think of a it as a baby between google keep (notes) and twitter (data stream). A user is given the ability to share small bits
-of data with the friends as they wish.
+Think of a it as a baby between google keep (notes) and twitter (shared small content). A user is given the ability to share small bits
+of `content` with the friends as they wish.
+
+A person using `garden` should be able to share content with their followers as they see fit (much like twitter) 
+but their own content should also behave like notes. Meaning that they are easy to browse, and search. All posts are 
+directly owned by their creators. Meaning there is no option/api to fetch a list of posts by themselves. 
+It must be done through users. Each user a person is following, should act like a notepad that can be explored, 
+with the most recently updated appearing at the top. 
 
 *some of these privacy controls may be added later, especially the ability to block followers*
 
