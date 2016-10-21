@@ -6,7 +6,7 @@ module.exports = function (express) {
   let router = express.Router()
   router.route('/signup')
     .post(function (req, res, next) {
-      console.log(`[garden] POST /api/signup`, req.body)
+      console.log(`[garden] POST /api/signup`, req.body.username)
       req.body.password = bcrypt.hashSync(req.body.password, 10)
       console.log('pass hash:', req.body.password)
       if (!req.body) {
