@@ -32,6 +32,16 @@ Here is a short run down of features we are hoping to have.
 
 More to come.
 
+## Installation
+
+*Note: Garden requires a MongoDB instance.*
+
+To quickly get a dev environment going follow these steps.
+
+1. Run `npm install`.
+2. Run `npm run db`.
+3. In a separate terminal, run `npm start`.
+
 ## Api Spec
 
 Resource List:
