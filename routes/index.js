@@ -25,6 +25,7 @@ module.exports = function (express) {
   router.use('/post', require('./posts')(express))
   router.get('/', function (req, res, next) {
     res.json({msg: 'Welcome to the api'})
+    console.log(`[garden] GET: /api`)
   })
   return router
 }
