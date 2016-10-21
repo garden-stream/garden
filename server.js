@@ -4,6 +4,10 @@ let mongoose = require('mongoose')
 let routes = require('./routes/')
 mongoose.connect('mongodb://localhost/garden')
 
+mongoose.connection.on('connected', () => {
+  console.log('[mongo] database connected')
+})
+
 let app = express()
 let server = require('http').Server(app)
 
@@ -24,5 +28,5 @@ app.use(function(req, res, next) {
 app.use('/api', routes(express));
 
 server.listen(app.get('port') || 3000, app.get('ip') || '0.0.0.0', function () {
-  console.log('garden has started..')
+  console.log(`[garden] api listening at ${server.address().address === '0.0.0.0' ? 'localhost' : server.addres().address}:${server.address().port}...`)
 })
