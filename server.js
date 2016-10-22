@@ -2,6 +2,8 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let mongoose = require('mongoose')
 let routes = require('./routes/')
+
+mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/garden')
 
 mongoose.connection.on('connected', () => {

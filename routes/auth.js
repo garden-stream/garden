@@ -6,29 +6,29 @@ module.exports = function (express) {
   let router = express.Router()
   router.route('/signup')
     .post(function (req, res, next) {
-      console.log(`[garden] POST /api/signup`, req.body.username)
-      req.body.password = bcrypt.hashSync(req.body.password, 10)
-      console.log('pass hash:', req.body.password)
       if (!req.body) {
         return res.status(400).json({
           error: 'empty body'
         })
       }
-      let newU = new User(req.body);
-      newU.save(function (err, user) {
+      req.body.password = bcrypt.hashSync(req.body.password, 10)
+      console.log(`[garden] POST /api/signup`, req.body.username)
+      let newUser = new User(req.body);
+      newUser.save(function (err, user) {
         if (err) {
-          console.error(err)
           if (err.code === 11000) {
+            console.error(`[garden] Failed to save new user "${req.body.username}". Username already exists.`, err)
             res.status(400).json({
               'error': 'Username already in use.'
             })
           } else {
+            console.error(`[garden] Failed to save new user "${req.body.username}".`, err)
             res.status(400).json({
               'error': err
             })
           }
         } else {
-          console.info('user added')
+          console.info(`[garden] User "${user.username}" created.`)
           let token = jwt.sign(user, 'a super secret awesome phras 312e');
           res.status(201).json({
             username: user.username,
@@ -41,20 +41,22 @@ module.exports = function (express) {
     .post(function (req, res, next) {
       console.log(`[garden] POST /api/login`, req.body)
       if (!req.body) {
+        console.error(`[garden] Login attempt failed. No request body provided.`)
         return res.status(400).json({
           error: 'empty body'
         })
       }
-      let newU = new User(req.body);
       User.findOne({
         username: req.body.username
       }, function (err, user) {
         if (err) {
+          console.warn(`[garden] finding user "${req.body.username} failed."`, err)
           return res.status(401).json({
             error: 'unauthorized'
           })
         }
         if (!user) {
+          console.warn(`[garden] Login attempt failed for user "${req.body.username}". User does not exist.`)
           return res.status(401).json({
             error: 'unauthorized'
           })
@@ -67,6 +69,7 @@ module.exports = function (express) {
             token: token
           })
         } else {
+          console.warn(`[garden] Login attempt failed for user "${req.body.username}". Invalid password.`)
           return res.status(401).json({
             error: 'unauthorized'
           })
