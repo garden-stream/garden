@@ -4,7 +4,7 @@ let mongoose = require('mongoose')
 let routes = require('./routes/')
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/garden')
+mongoose.connect(process.env.dbURL || 'mongodb://localhost/garden')
 
 mongoose.connection.on('connected', () => {
   console.log('[mongo] database connected')
@@ -29,6 +29,6 @@ app.use(function(req, res, next) {
 
 app.use('/api', routes(express));
 
-server.listen(app.get('port') || 3000, app.get('ip') || '0.0.0.0', function () {
+server.listen(process.env.PORT || 3000, process.env.IP || '0.0.0.0', function () {
   console.log(`[garden] api listening at ${server.address().address === '0.0.0.0' ? 'localhost' : server.addres().address}:${server.address().port}...`)
 })
