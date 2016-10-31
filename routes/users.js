@@ -42,7 +42,7 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user')
-          res.status(200).json(user)
+          res.status(200).json(user.followers)
         }     
       })
     })
@@ -57,7 +57,7 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user')
-          res.status(200).json(user)
+          res.status(200).json(user.following)
         }     
       })
     })
@@ -72,7 +72,7 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user and posts')
-          res.status(200).json(user)
+          res.status(200).json(user.posts)
         }     
       })
     })
