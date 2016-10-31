@@ -27,6 +27,9 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user')
+          if (!user) {
+            return res.status(400).json({'error': 'no user found'})
+          }
           res.status(200).json(user)
         }     
       });
@@ -42,6 +45,9 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user')
+          if (!user) {
+            return res.status(400).json({'error': 'no user found'})
+          }
           res.status(200).json(user.followers)
         }     
       })
@@ -57,6 +63,9 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user')
+          if (!user) {
+            return res.status(400).json({'error': 'no user found'})
+          }
           res.status(200).json(user.following)
         }     
       })
