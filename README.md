@@ -54,12 +54,12 @@ Resource List:
 A user should have the following routes
 - GET
   - `/user` expects `/user/username`
-  - `/user/followers` expects `/user/_id/followers`
-  - `/user/following` expects `/user/_id/following`
-  - `/user/posts` expects `/user/_id/posts`
+  - `/user/followers` expects `/user/username/followers`
+  - `/user/following` expects `/user/username/following`
+  - `/user/posts` expects `/user/username/posts`
 
 - POST
-  - `/user/follow` expects `token` header, and `/user/_id/follow` 
+  - `/user/follow` expects `token` header, and `/user/username/follow` 
   
 
 ### post

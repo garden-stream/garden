@@ -15,7 +15,7 @@ module.exports = function (express) {
         }
       })
     })
-    // /api/user/{id}
+    // /api/user/{username}
     router.route('/:username')
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user/${req.params.username}`)
@@ -32,7 +32,7 @@ module.exports = function (express) {
       });
     })
 
-  router.route('/:_id/followers')
+  router.route('/:username/followers')
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user/${req.params._id}/followers`)
       User.findOne({_id: req.params._id}, 'followers')
@@ -47,7 +47,7 @@ module.exports = function (express) {
       })
     })
 
-  router.route('/:_id/following')
+  router.route('/:username/following')
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user/${req.params._id}/following`)
       User.findOne({_id: req.params._id}, 'following')
@@ -62,7 +62,7 @@ module.exports = function (express) {
       })
     })
 
-  router.route('/:_id/posts')
+  router.route('/:username/posts')
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user/${req.params._id}/posts`)
       User.findOne({_id: req.params._id}, 'posts')
@@ -77,7 +77,7 @@ module.exports = function (express) {
       })
     })
 
-  router.route('/:_id/follow') 
+  router.route('/:username/follow') 
     // requires user. Adds the _id user to the list of
     // "followed" users on the req.user
     .post((req, res, next) => {
