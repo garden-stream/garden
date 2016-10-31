@@ -22,7 +22,7 @@ module.exports = function (express) {
       if (req.user) {
         console.log('authenticated request')
       }
-      User.findOne({_id: req.params.username}, '-password', function (err, user) {
+      User.findOne({username: req.params.username}, '-password', function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
         } else {
