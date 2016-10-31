@@ -53,7 +53,7 @@ Resource List:
 
 A user should have the following routes
 - GET
-  - `/user` expects `/user/_id`
+  - `/user` expects `/user/username`
   - `/user/followers` expects `/user/_id/followers`
   - `/user/following` expects `/user/_id/following`
   - `/user/posts` expects `/user/_id/posts`
@@ -73,6 +73,7 @@ A user should have the following routes
     - `link`
   - It is up to the client in terms of how they display each type of content, but they should support at least these 4.
   - Optionally, if they don't understand a content type, they should not display it.
+  
 ### Special
 - POST expects `username` and `password` on POST
   - `/auth/signup`

@@ -16,9 +16,9 @@ module.exports = function (express) {
       })
     })
     // /api/user/{id}
-    router.route('/:_id')
+    router.route('/:username')
     .get((req, res, next) => {
-      console.log(`[garden] GET /api/user/${req.params._id}`)
+      console.log(`[garden] GET /api/user/${req.params.username}`)
       if (req.user) {
         console.log('authenticated request')
       }
