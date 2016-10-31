@@ -7,7 +7,9 @@ module.exports = function (express) {
   router.route('/') // /api/user/
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user`)
-      User.find({}, '-password', function(err, users) {
+      User.find({}, '-password')
+      .sort(-1)
+      .exec(function(err, users) {
         if (err) {
           res.status(400).json({'error':err})
         } else {
