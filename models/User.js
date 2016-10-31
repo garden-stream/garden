@@ -2,7 +2,9 @@ let mongoose = require('mongoose');
 
 let postSchema = mongoose.Schema({
   contentType: String,
-  content: String
+  content: String,
+}, {
+  timestamps: true
 })
 
 let userSchema = mongoose.Schema({
