@@ -22,7 +22,7 @@ module.exports = function (express) {
       if (req.user) {
         console.log('authenticated request')
       }
-      User.findOne({_id: req.params._id}, '-password', function (err, user) {
+      User.findOne({_id: req.params.username}, '-password', function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
         } else {
@@ -34,8 +34,8 @@ module.exports = function (express) {
 
   router.route('/:username/followers')
     .get((req, res, next) => {
-      console.log(`[garden] GET /api/user/${req.params._id}/followers`)
-      User.findOne({_id: req.params._id}, 'followers')
+      console.log(`[garden] GET /api/user/${req.params.username}/followers`)
+      User.findOne({username: req.params.username}, 'followers')
       .populate('followers', '-password')
       .exec(function (err, user) {
         if (err) {
@@ -49,8 +49,8 @@ module.exports = function (express) {
 
   router.route('/:username/following')
     .get((req, res, next) => {
-      console.log(`[garden] GET /api/user/${req.params._id}/following`)
-      User.findOne({_id: req.params._id}, 'following')
+      console.log(`[garden] GET /api/user/${req.params.username}/following`)
+      User.findOne({username: req.params.username}, 'following')
       .populate('following', '-password')
       .exec(function (err, user) {
         if (err) {
@@ -64,8 +64,8 @@ module.exports = function (express) {
 
   router.route('/:username/posts')
     .get((req, res, next) => {
-      console.log(`[garden] GET /api/user/${req.params._id}/posts`)
-      User.findOne({_id: req.params._id}, 'posts')
+      console.log(`[garden] GET /api/user/${req.params.username}/posts`)
+      User.findOne({username: req.params.username}, 'posts')
       // .populate('following', '-password')
       .exec(function (err, user) {
         if (err) {
@@ -77,7 +77,7 @@ module.exports = function (express) {
       })
     })
 
-  router.route('/:username/follow') 
+  router.route('/:_id/follow') 
     // requires user. Adds the _id user to the list of
     // "followed" users on the req.user
     .post((req, res, next) => {
