@@ -21,6 +21,8 @@ let userSchema = mongoose.Schema({
     index: true,
   }],
   posts: [postSchema]
+}, {
+  timestamps: true
 })
 
 let Users = mongoose.model('user', userSchema);
