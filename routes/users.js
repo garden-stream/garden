@@ -8,7 +8,7 @@ module.exports = function (express) {
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user`)
       User.find({}, '-password')
-      .sort(-1)
+      .sort('-date')
       .exec(function(err, users) {
         if (err) {
           res.status(400).json({'error':err})
