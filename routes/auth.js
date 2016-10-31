@@ -39,7 +39,7 @@ module.exports = function (express) {
     })
   router.route('/login')
     .post(function (req, res, next) {
-      console.log(`[garden] POST /api/login`, req.body)
+      console.log(`[garden] POST /api/login`, req.body.username)
       if (!req.body) {
         console.error(`[garden] Login attempt failed. No request body provided.`)
         return res.status(400).json({
