@@ -13,7 +13,7 @@ module.exports = function (express) {
         if (err) {
           res.status(400).json({'error':err})
         } else {
-        res.status(200).json(users);
+          res.status(200).json(users);
         }
       })
     })
@@ -42,6 +42,7 @@ module.exports = function (express) {
       console.log(`[garden] GET /api/user/${req.params.username}/followers`)
       User.findOne({username: req.params.username}, 'followers')
       .populate('followers', '-password')
+      .sort('-date')
       .exec(function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
@@ -60,6 +61,7 @@ module.exports = function (express) {
       console.log(`[garden] GET /api/user/${req.params.username}/following`)
       User.findOne({username: req.params.username}, 'following')
       .populate('following', '-password')
+      .sort('-date')
       .exec(function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
