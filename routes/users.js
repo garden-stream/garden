@@ -8,7 +8,7 @@ module.exports = function (express) {
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user`)
       User.find({}, '-password')
-      .sort('-date')
+      .sort('-updatedAt')
       .exec(function(err, users) {
         if (err) {
           res.status(400).json({'error':err})
@@ -42,7 +42,7 @@ module.exports = function (express) {
       console.log(`[garden] GET /api/user/${req.params.username}/followers`)
       User.findOne({username: req.params.username}, 'followers')
       .populate('followers', '-password')
-      .sort('-date')
+      .sort('-updatedAt')
       .exec(function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
@@ -61,7 +61,7 @@ module.exports = function (express) {
       console.log(`[garden] GET /api/user/${req.params.username}/following`)
       User.findOne({username: req.params.username}, 'following')
       .populate('following', '-password')
-      .sort('-date')
+      .sort('-updatedAt')
       .exec(function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
