@@ -19,7 +19,9 @@ module.exports = function (express) {
           let posts = []
           users.following.forEach(function (user, idx) {
             user.posts.forEach(function (post) {
+              console.log('post:', post)
               post.author = user.username
+              console.log('post:', post)
             })
             posts = posts.concat(user.posts)
           })
