@@ -13,7 +13,7 @@ module.exports = function (express) {
       console.log(`[garden] GET /api/feed:`, req.user.username)
       User.findOne({_id: req.user._id}, 'following')
       .populate('following', 'username posts')
-      .sort('-updatedAt')
+      .sort([['updatedAt','descending']])
       .lean()
       .exec(function (err, users) {
         if (err) { return res.status(400).json({'error':err})
@@ -21,9 +21,9 @@ module.exports = function (express) {
           let posts = []
           users.following.forEach(function (user, idx) {
             user.posts.forEach(function (post) {
-              console.log('user:', user.username)
+              // console.log('user:', user.username)
               post['author'] = user.username
-              console.log('post:', post)
+              // console.log('post:', post)
             })
             posts = posts.concat(user.posts)
           })
