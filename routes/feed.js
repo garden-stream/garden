@@ -16,7 +16,11 @@ module.exports = function (express) {
       .exec(function (err, users) {
         if (err) { return res.status(400).json({'error':err})
         } else {
-          return res.status(200).json(users.following)
+          let posts = []
+          users.following.forEach(function (user, idx) {
+            posts = posts.concat(user.posts)
+          })
+          return res.status(200).json(posts)
         }     
       })
     })
