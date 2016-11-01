@@ -125,13 +125,38 @@ module.exports = function (express) {
       })
   })
   
-  // router.route('/:_id/questions')
-  //   .get(function (req, res) {
-  //     User.findOne({_id: req.params._id}, '-password', function (error, user) {
-  //       Question.find({userId: user._id}, function (error, questions) {
-  //         res.status(200).json([{user: user, questions: questions}]);
-  //       });
-  //     })
-  //   })
+  router.route('/:_id/unfollow') 
+    // requires user. Adds the _id user to the list of
+    // "followed" users on the req.user
+    .PUT((req, res, next) => {
+      console.log(`[garden] PUT /api/user/${req.params._id}/follow`)
+      // check auth
+      if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
+      User.findOne({_id: req.user._id}, '-password')
+      .exec(function (err, user) {
+        if (err) { return res.status(400).json({'error':err})
+        } else {
+          // console.info('Found the user, adding following')
+          user.following.pull(req.params._id)
+          user.save(function (err, user) {
+            if (err) { return res.status(400).json({'error':err}) }
+            console.log('Success unfollowing...')
+            User.findOne({_id: req.params._id}, '-password')
+            .exec(function (err, user2) {
+              if (err) { return res.status(400).json({'error':err})
+              } else {
+                // console.info('Found the user, adding follower')
+                user2.followers.pull(req.user._id)
+                user2.save(function (err, user2) {
+                  if (err) { return res.status(400).json({'error':err}) }
+                  console.log('Success!')
+                  res.status(200).json(user)
+                })
+              }     
+            })
+          })
+        }     
+      })
+  })
   return router
 }
