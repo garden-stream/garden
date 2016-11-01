@@ -101,12 +101,25 @@ module.exports = function (express) {
       .exec(function (err, user) {
         if (err) { return res.status(400).json({'error':err})
         } else {
-          console.info('Found the user, adding follower')
+          // console.info('Found the user, adding following')
           user.following.push(req.params._id)
           user.save(function (err, user) {
             if (err) { return res.status(400).json({'error':err}) }
-            console.log('Success!');
-            res.status(201).json(user)
+            console.log('Success following...')
+            User.findOne({_id: req.params._id}, '-password')
+            .exec(function (err, user2) {
+              if (err) { return res.status(400).json({'error':err})
+              } else {
+                // console.info('Found the user, adding follower')
+                user.followers.push(req.user._id)
+                user.save(function (err, user) {
+                  if (err) { return res.status(400).json({'error':err}) }
+                  console.log('Success!')
+                  res.status(201).json(user)
+                })
+              }     
+            })
+            // res.status(201).json(user)
           })
         }     
       })
