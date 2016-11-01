@@ -18,9 +18,10 @@ module.exports = function (express) {
         } else {
           let posts = []
           users.following.forEach(function (user, idx) {
-            posts = posts.concat(user.posts.forEach(function (post) {
+            user.posts.forEach(function (post) {
               post.author = user.username
-            }))
+            })
+            posts = posts.concat(user.posts)
           })
           return res.status(200).json(posts)
         }     
