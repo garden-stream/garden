@@ -128,7 +128,7 @@ module.exports = function (express) {
   router.route('/:_id/unfollow') 
     // requires user. Adds the _id user to the list of
     // "followed" users on the req.user
-    .PUT((req, res, next) => {
+    .put((req, res, next) => {
       console.log(`[garden] PUT /api/user/${req.params._id}/follow`)
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
