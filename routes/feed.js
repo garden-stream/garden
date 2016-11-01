@@ -13,6 +13,7 @@ module.exports = function (express) {
       console.log(`[garden] GET /api/feed:`, req.user.username)
       User.findOne({_id: req.user._id}, 'following')
       .populate('following', 'username posts')
+      .lean()
       .exec(function (err, users) {
         if (err) { return res.status(400).json({'error':err})
         } else {
