@@ -11,10 +11,10 @@ module.exports = function (express) {
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
       console.log(`[garden] GET /api/feed:`, req.user.username)
-      User.findOne({_id: req.user._id}, 'following')
+      User.findOne({_id: req.user._id}, 'updatedAt following', )
       .populate('following', 'username posts', null,
         { sort: { 'updatedAt': -1 } })
-      // .sort({updatedAt: 1})
+      .sort({ 'updatedAt': -1 })
       .lean()
       .exec(function (err, users) {
         if (err) { return res.status(400).json({'error':err})
