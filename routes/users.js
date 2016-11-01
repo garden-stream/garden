@@ -111,8 +111,8 @@ module.exports = function (express) {
               if (err) { return res.status(400).json({'error':err})
               } else {
                 // console.info('Found the user, adding follower')
-                user.followers.push(req.user._id)
-                user.save(function (err, user) {
+                user2.followers.push(req.user._id)
+                user2.save(function (err, user2) {
                   if (err) { return res.status(400).json({'error':err}) }
                   console.log('Success!')
                   res.status(201).json(user)
