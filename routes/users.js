@@ -60,8 +60,8 @@ module.exports = function (express) {
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user/${req.params.username}/following`)
       User.findOne({username: req.params.username}, 'following')
-      .populate('following', '-password')
-      .sort('-updatedAt')
+      .populate('following', '-password', null,
+        { sort: { 'updatedAt': -1 } })
       .exec(function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
