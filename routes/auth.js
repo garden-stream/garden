@@ -28,8 +28,8 @@ module.exports = function (express) {
             })
           }
         } else {
-          console.info(`[garden] User "${user.username}" created.`)
-          let token = jwt.sign(user, 'a super secret awesome phras 312e');
+          console.info(`[garden] User "${user}" created.`)
+          let token = jwt.sign({username: user.username, _id: user._id}, 'a super secret awesome phras 312e');
           res.status(201).json({
             username: user.username,
             token: token
@@ -63,8 +63,9 @@ module.exports = function (express) {
         }
         if (bcrypt.compareSync(req.body.password, user.password)) {
           user.password = null
-          let token = jwt.sign(user, 'a super secret awesome phras 312e');
-          res.status(201).json({
+          console.log('[garden] Login attempt:', user)
+          let token = jwt.sign({username: user.username, _id: user._id}, 'a super secret awesome phras 312e');
+          return res.status(201).json({
             username: user.username,
             token: token
           })

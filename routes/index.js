@@ -11,8 +11,8 @@ module.exports = function (express) {
             error: 'Unauthorized'
           })
         } else {
-          console.log('user:', user._doc)
-          req.user = user._doc
+          console.log('user:', user)
+          req.user = user
           next()
         }
       })

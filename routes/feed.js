@@ -11,7 +11,7 @@ module.exports = function (express) {
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
       console.log(`[garden] POST /api/feed:`, req.user.username)
-      User.findOne({_id: req.user._id}, '-password following')
+      User.findOne({_id: req.user._id}, 'following')
       .populate('following', '-password')
       .exec(function (err, users) {
         if (err) { return res.status(400).json({'error':err})
