@@ -8,9 +8,9 @@ module.exports = function (express) {
   router.route('/') 
     // requires user. Adds post to req.user
     .get((req, res, next) => {
-      console.log(`[garden] POST /api/feed:`, req.user.username)
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
+      console.log(`[garden] POST /api/feed:`, req.user.username)
       User.findOne({_id: req.user._id}, '-password following')
       .populate('following', '-password')
       .exec(function (err, users) {
