@@ -26,7 +26,7 @@ module.exports = function (express) {
       //     })
           return res.status(200).json(users)
         }     
-      // })
+      })
       // return res.status(200).json({ msg: 'Feed is currently down'})
     })
   return router
