@@ -13,5 +13,5 @@
 To quickly get a dev environment going follow these steps.
 
 1. Run `npm install`.
-2. Run `npm run db`.
+2. If you have the command `mongod` on your `PATH`, run `npm run db`.
 3. In a separate terminal, run `npm start`.
