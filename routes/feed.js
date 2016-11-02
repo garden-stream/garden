@@ -1,5 +1,6 @@
 let bcrypt = require('bcrypt')
 let User = require('../models/User')
+let Post = require('../models/Post')
 let jwt = require('jsonwebtoken')
 
 module.exports = function (express) {
@@ -19,7 +20,18 @@ module.exports = function (express) {
           if (!user) {
             return res.status(400).json({'error': 'no user found'})
           }
-          return res.status(200).json(user)
+          Post.find({
+            '_id': { $in: user.following}
+          })
+          .populate('author_id', '-password')
+          .sort('-updatedAt')
+          .exec(function(err, posts) {
+            if (err) {
+              res.status(400).json({'error':err})
+            } else {
+              res.status(200).json(posts)
+            }
+          })
         }     
       })
     })
