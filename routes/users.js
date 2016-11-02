@@ -85,6 +85,9 @@ module.exports = function (express) {
           res.status(400).json({'error':err})
         } else {
           console.info('Found the user')
+          if (!user) {
+            return res.status(400).json({'error': 'no user found'})
+          }
           Post.find({author_id: user._id})
           .sort({ 'updatedAt': -1 })
           .exec(function (err, posts) {
