@@ -13,6 +13,9 @@ module.exports = function (express) {
         } else {
           console.log('user:', user)
           req.user = user
+          if (req.body.token) {
+            delete req.body.token
+          }
           next()
         }
       })
