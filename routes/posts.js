@@ -35,10 +35,12 @@ module.exports = function (express) {
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
       User.findOne({_id: req.user._id}, '-password')
       .exec(function (err, user) {
-        if (err) { return res.status(400).json({'error':err})
+        if (err) { 
+            return res.status(400).json({'error':err}
+          )
         } else {
           console.info('Found the user, adding post')
-          let newPost = new Post(req.body)
+          let newPost = new Post({...req.body, author_id: req.user._id})
           newPost.save(function (err, user) {
             if (err) { return res.status(400).json({'error':err}) }
             console.log('Success!');
