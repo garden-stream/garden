@@ -13,8 +13,7 @@ let userSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     index: true,
-  }],
-  posts: [postSchema]
+  }]
 }, {
   timestamps: true
 })
