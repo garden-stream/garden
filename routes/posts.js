@@ -1,5 +1,6 @@
 let bcrypt = require('bcrypt')
 let User = require('../models/User')
+let Post = require('../models/Post')
 let jwt = require('jsonwebtoken')
 
 module.exports = function (express) {
@@ -37,11 +38,13 @@ module.exports = function (express) {
         if (err) { return res.status(400).json({'error':err})
         } else {
           console.info('Found the user, adding post')
-          user.posts.push(req.body)
+          let newPost = new Post(req.body)
+          newPost.save()
+          user.posts.push(newPost)
           user.save(function (err, user) {
             if (err) { return res.status(400).json({'error':err}) }
             console.log('Success!');
-            res.status(201).json(user)
+            res.status(201).json(newPost)
           })
         }     
       })

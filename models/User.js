@@ -1,11 +1,5 @@
-let mongoose = require('mongoose');
-
-let postSchema = mongoose.Schema({
-  contentType: String,
-  content: String,
-}, {
-  timestamps: true
-})
+let mongoose = require('mongoose')
+let postSchema = require('./Post')
 
 let userSchema = mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
@@ -25,7 +19,6 @@ let userSchema = mongoose.Schema({
   timestamps: true
 })
 
-let Users = mongoose.model('user', userSchema);
+let Users = mongoose.model('user', userSchema)
 
-// make this available to our users in our Node applications
 module.exports = Users;
