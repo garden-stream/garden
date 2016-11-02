@@ -11,15 +11,15 @@ module.exports = function (express) {
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
       console.log(`[garden] GET /api/feed:`, req.user.username)
-      User.findOne({username: req.params.username}, 'following', function (err, user) {
+      User.findOne({username: req.user.username}, 'following', function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
         } else {
-          console.info('Found the user')
+          console.info('Found the user:', user)
           if (!user) {
             return res.status(400).json({'error': 'no user found'})
           }
-          res.status(200).json(user)
+          return res.status(200).json(user)
         }     
       })
     })
