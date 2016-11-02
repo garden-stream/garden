@@ -23,7 +23,7 @@ module.exports = function (express) {
           Post.find({
             'author_id': { $in: user.following}
           })
-          .populate('author_id', '-password')
+          .populate('author_id', 'username, updatedAt')
           .sort('-updatedAt')
           .exec(function(err, posts) {
             if (err) {
