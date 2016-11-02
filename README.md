@@ -4,6 +4,8 @@
 
 [What is Garden?](https://github.com/garden-stream/garden/wiki)
 
+[API Docs](https://github.com/garden-stream/garden/wiki/API-Documentation)
+
 ## Installation
 
 *Note: Garden requires a MongoDB instance.*
