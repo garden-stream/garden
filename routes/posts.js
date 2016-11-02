@@ -40,7 +40,7 @@ module.exports = function (express) {
           )
         } else {
           console.info('Found the user, adding post')
-          let newPost = new Post({...req.body, author_id: req.user._id})
+          let newPost = new Post({content: req.body.content, contentType: req.body.contentType, author_id: req.user._id})
           newPost.save(function (err, user) {
             if (err) { return res.status(400).json({'error':err}) }
             console.log('Success!');
