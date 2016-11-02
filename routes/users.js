@@ -86,6 +86,7 @@ module.exports = function (express) {
         } else {
           console.info('Found the user')
           Post.find({author_id: user._id})
+          .sort({ 'updatedAt': -1 })
           .exec(function (err, posts) {
             if (err) {
               res.status(400).json({'error':err})
