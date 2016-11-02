@@ -17,6 +17,11 @@ let userSchema = mongoose.Schema({
 }, {
   timestamps: true
 })
+userSchema.methods.getPosts = function(callback) {
+  return postSchema.find({
+    author_id: this._id
+  }, callback)
+}
 
 let Users = mongoose.model('user', userSchema)
 

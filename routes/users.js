@@ -1,5 +1,6 @@
 let bcrypt = require('bcrypt')
 let User = require('../models/User')
+let Post = require('../models/Post')
 let jwt = require('jsonwebtoken')
 
 module.exports = function (express) {
@@ -78,14 +79,20 @@ module.exports = function (express) {
   router.route('/:username/posts')
     .get((req, res, next) => {
       console.log(`[garden] GET /api/user/${req.params.username}/posts`)
-      User.findOne({username: req.params.username}, 'posts')
-      // .populate('following', '-password')
+      User.findOne({username: req.params.username})
       .exec(function (err, user) {
         if (err) {
           res.status(400).json({'error':err})
         } else {
-          console.info('Found the user and posts')
-          res.status(200).json(user.posts)
+          console.info('Found the user')
+          Post.find({author_id: user._id})
+          .exec(function (err, posts) {
+            if (err) {
+              res.status(400).json({'error':err})
+            } else {
+              res.status(200).json(posts)
+            }
+          })
         }     
       })
     })

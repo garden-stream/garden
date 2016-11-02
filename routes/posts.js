@@ -11,17 +11,17 @@ module.exports = function (express) {
     .put((req, res, next) => {
       console.log(`[garden] PUT /api/post`, req.body)
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
-      User.findOneAndUpdate({_id: req.user._id, 'posts._id': req.params.id}, {
-        'posts.$.content': req.body.content,
-        'posts.$.contentType': req.body.contentType
-      }, '-password')
-      .exec(function (err, user) {
+      Post.findOneAndUpdate({author_id: req.user._id, _id: req.params.id}, {
+        content: req.body.content,
+        contentType: req.body.contentType
+      })
+      .exec(function (err, post) {
         if (err) { return res.status(400).json({'error':err})
         } else {
-          user.save(function (err, user) {
+          post.save(function (err, post) {
             if (err) { return res.status(400).json({'error':err}) }
             console.log('Success!');
-            res.status(201).json(user)
+            res.status(201).json(post)
           })
         }     
       })
@@ -39,9 +39,7 @@ module.exports = function (express) {
         } else {
           console.info('Found the user, adding post')
           let newPost = new Post(req.body)
-          newPost.save()
-          user.posts.push(newPost)
-          user.save(function (err, user) {
+          newPost.save(function (err, user) {
             if (err) { return res.status(400).json({'error':err}) }
             console.log('Success!');
             res.status(201).json(newPost)

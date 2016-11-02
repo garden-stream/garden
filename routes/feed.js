@@ -11,26 +11,27 @@ module.exports = function (express) {
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
       console.log(`[garden] GET /api/feed:`, req.user.username)
-      User.findOne({_id: req.user._id}, 'updatedAt following')
-      // .sort({ 'updatedAt': -1 })
-      .populate('following', 'username posts', null,
-        { sort: { 'updatedAt': -1 } })
-      .lean()
-      .exec(function (err, users) {
-        if (err) { return res.status(400).json({'error':err})
-        } else {
-          let posts = []
-          users.following.forEach(function (user, idx) {
-            user.posts.forEach(function (post) {
-              // console.log('user:', user.username)
-              post['author'] = user.username
-              // console.log('post:', post)
-            })
-            posts = posts.concat(user.posts)
-          })
-          return res.status(200).json(posts)
-        }     
-      })
+      // User.findOne({_id: req.user._id}, 'updatedAt following')
+      // // .sort({ 'updatedAt': -1 })
+      // .populate('following', 'username posts', null,
+      //   { sort: { 'updatedAt': -1 } })
+      // .lean()
+      // .exec(function (err, users) {
+      //   if (err) { return res.status(400).json({'error':err})
+      //   } else {
+      //     let posts = []
+      //     users.following.forEach(function (user, idx) {
+      //       user.posts.forEach(function (post) {
+      //         // console.log('user:', user.username)
+      //         post['author'] = user.username
+      //         // console.log('post:', post)
+      //       })
+      //       posts = posts.concat(user.posts)
+      //     })
+      //     return res.status(200).json(posts)
+      //   }     
+      // })
+      return res.status(200).json({ msg: 'Feed is currently down'})
     })
   return router
 }
