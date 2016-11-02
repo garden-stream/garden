@@ -21,7 +21,7 @@ module.exports = function (express) {
             return res.status(400).json({'error': 'no user found'})
           }
           Post.find({
-            '_id': { $in: user.following}
+            'author_id': { $in: user.following}
           })
           .populate('author_id', '-password')
           .sort('-updatedAt')
