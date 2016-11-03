@@ -11,7 +11,11 @@ module.exports = function (express) {
       // check auth
       if (!req.user) { return res.status(401).json({ error: 'Unauthorized' })}
       console.log(`[garden] GET /api/search:`, req.query)
-      User.find({username: new RegExp('^'+req.query.name, "i")}, '-password -followers -following', {limit: 25}, function (err, users) {
+      let query = {}
+      let searchTerm = req.query.displayName || req.query.username || ''
+      let searchField = req.query.displayName ? 'displayName' : 'username'
+      query[searchField] = new RegExp('^' + searchTerm, 'i')
+      User.find(query, '-password -followers -following', {limit: 25}, function (err, users) {
         if (err) {
           return res.status(400).json({'error':err})
         } else {
