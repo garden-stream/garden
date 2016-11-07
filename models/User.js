@@ -3,7 +3,12 @@ let postSchema = require('./Post')
 
 let userSchema = mongoose.Schema({
   username: { type: String, required: true, index: { unique: true } },
+  displayName: { type: String, required: true, index: { unique: false } },
   password: { type: String, required: true },
+  description: {
+    type: String,
+    required: false
+  },
   following: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
