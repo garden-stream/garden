@@ -62,8 +62,8 @@ module.exports = function (express) {
           })
         }
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          user.password = null
-          console.log('[garden] Login attempt:', user)
+          // user.password = null
+          // console.log('[garden] Login attempt:', user)
           let token = jwt.sign({username: user.username, _id: user._id}, 'a super secret awesome phras 312e');
           return res.status(201).json({
             username: user.username,
@@ -71,6 +71,57 @@ module.exports = function (express) {
           })
         } else {
           console.warn(`[garden] Login attempt failed for user "${req.body.username}". Invalid password.`)
+          return res.status(401).json({
+            error: 'unauthorized'
+          })
+        }
+      })
+    })
+  router.route('/reset')
+    .post(function (req, res, next) {
+      console.log(`[garden] POST /api/reset`, req.user)
+      if (!req.body) {
+        console.error(`[garden] reset attempt failed. No request body provided.`)
+        return res.status(400).json({
+          error: 'empty body'
+        })
+      }
+      User.findOne({
+        username: req.user.username
+      }, function (err, user) {
+        if (err) {
+          console.warn(`[garden] finding user "${req.user.username} failed."`, err)
+          return res.status(500).json({
+            error: 'db error'
+          })
+        }
+        if (!user) {
+          console.warn(`[garden] Reset attempt failed for user "${req.user.username}". User does not exist.`)
+          return res.status(400).json({
+            error: 'User does not exist'
+          })
+        }
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          // user.password = null
+          // console.log('[garden] Reset attempt:', user)
+          user.password = bcrypt.hashSync(req.body.newPassword, 10)
+          user.save(function (err, user) {
+            if (err) {
+              console.error(`[garden] Failed to save new user "${req.user.username}".`, err)
+              res.status(400).json({
+                'error': err
+              })
+            } else {
+              console.info(`[garden] User "${user.username}" password reset.`)
+              let token = jwt.sign({username: user.username, _id: user._id}, 'a super secret awesome phras 312e');
+              res.status(201).json({
+                username: user.username,
+                token: token
+              })
+            }
+          })
+        } else {
+          console.warn(`[garden] Reset attempt failed for user "${req.user.username}". Invalid password.`)
           return res.status(401).json({
             error: 'unauthorized'
           })
